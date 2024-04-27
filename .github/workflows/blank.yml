@@ -1,15 +1,17 @@
 name: Get IP Address
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   get-ip:
     runs-on: ubuntu-latest
     steps:
       - name: Get IP address
+        id: get_ip
         run: |
-          MY_IP=$(curl -s ifconfig.co)
-          echo "My IP address is: $MY_IP"
+          IP=$(curl -s https://jsonip.com | jq -r '.ip')
+          echo "My IP address is: $IP"
+          
+      - name: Use IP address
+        run: echo "Do something with the IP address ${{ steps.get_ip.outputs.IP }}"
