@@ -1,0 +1,15 @@
+name: Get IP Address
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  get-ip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get IP address
+        run: |
+          MY_IP=$(curl -s ifconfig.co)
+          echo "My IP address is: $MY_IP"
